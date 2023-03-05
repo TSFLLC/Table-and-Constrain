@@ -1,0 +1,46 @@
+------------DROP CONSTRAINT
+  ALTER TABLE [customerdb]
+  DROP CONSTRAINT [PK_customerdb];
+  WITH (ONLINE = ON) ;
+
+------------ADD primary key constrain
+ALTER TABLE [dbo].[customerdb]
+ ADD CONSTRAINT PK_customer PRIMARY KEY  (custonerID, ID);
+
+------------Add identity column
+     ALTER TABLE [dbo].[TableName]
+  ADD ID INT IDENTITY(1,1) NOT NULL
+
+------------ADDING UNIQUE CONSTRAIN ON 2 Column
+  ALTER TABLE table2
+ADD CONSTRAINT PK_Constrain UNIQUE CLUSTERED (a,b)
+WITH (ONLINE = ON, MAXDOP = 2, RESUMABLE = ON, MAX_DURATION = 240);
+
+-----------ADDING CHECK CONSTRAINT
+ALTER TABLE dbo.doc_exd WITH NOCHECK
+ADD CONSTRAINT exd_check CHECK (column_a > 1) ;
+GO
+
+-----------ADDING DEFAULT CONSTRAINT
+  ALTER TABLE dbo.doc_exz
+  ADD CONSTRAINT col_b_def
+  DEFAULT 50 FOR column_b ;
+  GO
+
+
+-- Remove a single column.
+ALTER TABLE dbo.doc_exb DROP COLUMN column_b ;
+GO
+
+-- Remove multiple columns.
+ALTER TABLE dbo.doc_exb DROP COLUMN column_c, column_d;
+
+---Creae Foreyn key
+ALTER TABLE Person.ContactBackup
+ADD CONSTRAINT FK_ContactBackup_Contact FOREIGN KEY (ContactID)
+    REFERENCES Person.Person (BusinessEntityID) ;
+GO
+--Drop foreyn key
+ALTER TABLE Person.ContactBackup
+DROP CONSTRAINT FK_ContactBackup_Contact ;
+GO
